@@ -208,14 +208,12 @@ function compiler(opts) {
   }
 }
 
-export const cpp = compiler();
-
-/*module.exports = function(obj) {
+module.exports = function(obj) {
   if (typeof obj === 'object' &&
       !Array.isArray(obj)
   ) {
     return compiler(obj)
   }
 
-  return compiler()(obj)
-}*/
+  return compiler().apply(arguments)
+}
