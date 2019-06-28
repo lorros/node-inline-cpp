@@ -163,13 +163,14 @@ NODE_API_MODULE(addon, Init)
   fs.writeJsonSync(path.join(modPath, 'binding.gyp'), binding, { spaces: 2 });
 
   let execOpts = {
-    stdio: (debug.enabled) ? [0,1,2] : [null,null,null]
+//    stdio: (debug.enabled) ? [0,1,2] : [null,null,null]
+    stdio: [0,1,2]
   };
 
-  execSync(`node "${nodeGyp}" configure --directory="${modPath}"`, execOpts)
+  execSync(`CXXFLAGS=--std=c++1y node "${nodeGyp}" configure --directory="${modPath}"`, execOpts)
 
   try {
-    execSync(`node "${nodeGyp}" build --directory="${modPath}"`, execOpts)
+    execSync(`CXXFLAGS="--std=c++14 -Wno-parentheses -Wno-missing-field-initializers" node "${nodeGyp}" build --directory="${modPath}"`, execOpts)
 
     fs.renameSync(path.join(modPath, 'build', 'Release', modName+'.node'), modNode)
     fs.removeSync(path.join(modPath, 'build'))
