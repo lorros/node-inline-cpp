@@ -208,7 +208,9 @@ function compiler(opts) {
   }
 }
 
-module.exports = function(obj) {
+export const cpp = compiler();
+
+/*module.exports = function(obj) {
   if (typeof obj === 'object' &&
       !Array.isArray(obj)
   ) {
@@ -216,4 +218,4 @@ module.exports = function(obj) {
   }
 
   return compiler()(obj)
-}
+}*/
