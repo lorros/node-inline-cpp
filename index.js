@@ -203,17 +203,21 @@ function compiler(opts) {
     if (compileString) {
       return generateModule(compileString, opts);
     }
-    
+
     throw new Error('Wrong arguments for inline-cpp')
   }
 }
 
-module.exports = function(obj) {
+module.exports = function(obj, a) {
   if (typeof obj === 'object' &&
       !Array.isArray(obj)
   ) {
     return compiler(obj)
   }
 
-  return compiler()(obj)
+  if (a !== undefined) {
+      return compiler()(obj, a)
+  } else {
+      return compiler()(obj)
+  }
 }
