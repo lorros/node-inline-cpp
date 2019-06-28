@@ -215,5 +215,5 @@ module.exports = function(obj) {
     return compiler(obj)
   }
 
-  return compiler().apply(arguments)
+  return compiler()(obj)
 }
