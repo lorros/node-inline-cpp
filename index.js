@@ -170,7 +170,7 @@ NODE_API_MODULE(addon, Init)
   execSync(`CXXFLAGS=--std=c++1y node "${nodeGyp}" configure --directory="${modPath}"`, execOpts)
 
   try {
-    execSync(`CXXFLAGS="--std=c++14 -Wno-parentheses -Wno-missing-field-initializers" node "${nodeGyp}" build --directory="${modPath}"`, execOpts)
+    execSync(`CXXFLAGS="--std=c++14 -Wno-parentheses -Wno-missing-field-initializers -Wcomment" node "${nodeGyp}" build --directory="${modPath}"`, execOpts)
 
     fs.renameSync(path.join(modPath, 'build', 'Release', modName+'.node'), modNode)
     fs.removeSync(path.join(modPath, 'build'))
