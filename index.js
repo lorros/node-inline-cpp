@@ -203,7 +203,7 @@ function compiler(opts) {
     if (compileString) {
       return generateModule(compileString, opts);
     }
-
+    console.log(arguments);
     throw new Error('Wrong arguments for inline-cpp')
   }
 }
@@ -215,9 +215,5 @@ module.exports = function(obj, a) {
     return compiler(obj)
   }
 
-  if (a !== undefined) {
-      return compiler()(obj, a)
-  } else {
-      return compiler()(obj)
-  }
+  return compiler().apply(null, arguments)
 }
