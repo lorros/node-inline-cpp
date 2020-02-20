@@ -167,10 +167,16 @@ NODE_API_MODULE(addon, Init)
     stdio: [0,1,2]
   };
 
-  execSync(`CXXFLAGS="--std=c++1z -fopenmp" node "${nodeGyp}" configure --directory="${modPath}"`, execOpts)
+// with openmp:
+//execSync(`CXXFLAGS="--std=c++1z -fopenmp" node "${nodeGyp}" configure --directory="${modPath}"`, execOpts)
+// without openmp:
+  execSync(`CXXFLAGS="--std=c++1z" node "${nodeGyp}" configure --directory="${modPath}"`, execOpts)
 
   try {
-    execSync(`CXXFLAGS="--std=c++1z -O3 -fopenmp -Wno-parentheses -Wno-missing-field-initializers -Wno-comment" LDFLAGS="-lgomp" node "${nodeGyp}" build --directory="${modPath}"`, execOpts)
+// with openmp:
+//  execSync(`CXXFLAGS="--std=c++1z -O3 -fopenmp -Wno-parentheses -Wno-missing-field-initializers -Wno-comment" LDFLAGS="-lgomp" node "${nodeGyp}" build --directory="${modPath}"`, execOpts)
+// without openmp:
+    execSync(`CXXFLAGS="--std=c++1z -O3 -Wno-parentheses -Wno-missing-field-initializers -Wno-comment" node "${nodeGyp}" build --directory="${modPath}"`, execOpts)
 
     fs.renameSync(path.join(modPath, 'build', 'Release', modName+'.node'), modNode)
     fs.removeSync(path.join(modPath, 'build'))
